@@ -1,3 +1,3 @@
 # batchdic
 
-https://github.io/dep689/batchdic
+https://dep689.github.io/batchdic
