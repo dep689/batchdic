@@ -4,6 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    ul.no-bullets {
+      list-style-type: none;
+    }
+
+    a {
+      color: green;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      color: hotpink;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <div>
@@ -11,7 +26,7 @@
     <div>
       <button id="clear">削除</button>
     </div>
-    <textarea id="batch" cols="30" rows="16"></textarea>
+    <textarea id="batch" cols="30" rows="16" placeholder="1行に1単語ずつ入力してね"></textarea>
     <div>
       <button id="button">検索</button>
     </div>
@@ -20,7 +35,7 @@
   <div>
     <h3>履歴</h3>
     <button id="clearhistory">履歴を削除</button>
-    <ul id="wordhistory"></ul>
+    <ul class="no-bullets" id="wordhistory"></ul>
   </div>
 
   <script>
@@ -38,7 +53,10 @@
         cache.add(w)
 
         li = document.createElement("li")
-        li.textContent = w
+        link = document.createElement("a")
+        link.href = `https://ejje.weblio.jp/content/${w}`
+        link.textContent = w
+        li.appendChild(link)
         wordhistory.appendChild(li)
       }
     }
