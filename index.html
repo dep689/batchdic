@@ -19,6 +19,7 @@
 
   <div>
     <h3>履歴</h3>
+    <button id="clearhistory">履歴を削除</button>
     <ul id="wordhistory"></ul>
   </div>
 
@@ -33,11 +34,12 @@
     function showHistory() {
       for (const w of h) {
         if (cache.has(w)) continue
+        
+        cache.add(w)
 
         li = document.createElement("li")
         li.textContent = w
         wordhistory.appendChild(li)
-
       }
     }
 
@@ -51,7 +53,8 @@
       .forEach(w => {
         if (w == "") return
 
-        open(`https://ejje.weblio.jp/content/${w}`, "_blank")
+        o = open(`https://ejje.weblio.jp/content/${w}`, "_blank")
+
         h.add(w)
       })
 
@@ -61,6 +64,13 @@
 
     clear.addEventListener("click", () => {
       batch.value = ""
+    })
+
+    clearhistory.addEventListener("click", () => {
+      if (!confirm("履歴を削除しますか？")) return
+
+      localStorage.setItem("history", "[]")
+      showHistory()
     })
   </script>
 </body>
