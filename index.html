@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <h3>単語</h3>
+    <div>
+      <button id="clear">削除</button>
+    </div>
+    <textarea id="batch" cols="30" rows="16"></textarea>
+    <div>
+      <button id="button">検索</button>
+    </div>
+  </div>
+
+  <div>
+    <h3>履歴</h3>
+    <ul id="wordhistory"></ul>
+  </div>
+
+  <script>
+    if (localStorage.getItem("history")) {
+      localStorage.setItem("history", JSON.stringify([]))
+    }
+
+    h = new Set(JSON.parse(localStorage.getItem("history")))
+    cache = new Set()
+
+    function showHistory() {
+      for (const w of h) {
+        if (cache.has(w)) continue
+
+        li = document.createElement("li")
+        li.textContent = w
+        wordhistory.appendChild(li)
+
+      }
+    }
+
+    showHistory()
+
+    button.addEventListener("click", () => {
+
+      batch.value
+      .split("\n")
+      .map(i => i.trim())
+      .forEach(w => {
+        if (w == "") return
+
+        open(`https://ejje.weblio.jp/content/${w}`, "_blank")
+        h.add(w)
+      })
+
+      localStorage.setItem("history", JSON.stringify(Array.from(h)))
+      showHistory()
+    })
+
+    clear.addEventListener("click", () => {
+      batch.value = ""
+    })
+  </script>
+</body>
+</html>
