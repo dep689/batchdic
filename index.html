@@ -39,7 +39,7 @@
   </div>
 
   <script>
-    if (localStorage.getItem("history")) {
+    if (!localStorage.getItem("history")) {
       localStorage.setItem("history", JSON.stringify([]))
     }
 
